@@ -8,28 +8,28 @@ diceSelect = 0
 
 diceChange = 0
 
-maxDice = {0:4,1:6,2:8,3:10,4:12,5:20,6:100}
+maxDice = {
+	0:4,
+	1:6,
+	2:8,
+	3:10,
+	4:12,
+	5:20,
+	6:100
+}
 
+def change_dice(next):
+	diceSelect = (diceSelect + next) % len(dice)
+	display.scroll(str(dice[diceSelect]))
+
+	
 while True:
 
 	if (button_a.was_pressed()):
-		diceChange = 1
-		diceSelect += 1
-		if (diceSelect >= 7):
-			diceSelect = 0
-
+		change_dice(1)
 
 	if (button_b.was_pressed()):
-		diceChange = 1
-		diceSelect -= 1
-		if (diceSelect < 0):
-			diceSelect = 6
-
-
-	if (diceChange):
-		diceChange = 0
-		display.scroll(str(dice[diceSelect]))
-
+		change_dice(-1)
 
 	if (accelerometer.was_gesture('shake')):
 		maxNumber = maxDice[diceSelect]
